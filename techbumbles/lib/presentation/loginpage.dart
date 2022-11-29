@@ -62,8 +62,9 @@ class _LoginPageState extends State<LoginPage> {
                   if (!updating) {
                     if (validateLoginfield(userNameController.text.trim(),
                         passwordController.text.trim())) {
-                      authData = await DataService()
-                          .doLogin(username: "kminchelle", password: "0lelplR");
+                      authData = await DataService().doLogin(
+                          username: userNameController.text.trim(),
+                          password: passwordController.text.trim());
                       if (authData == null) {
                         ScaffoldMessenger.of(context)
                           ..clearSnackBars()
@@ -76,7 +77,9 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => WelcomePage()));
+                                builder: (context) => WelcomePage(
+                                      authData: authData!,
+                                    )));
                       }
                       setState(() {
                         updating = false;

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:techbumbles/model/auth_data.dart';
+import 'package:techbumbles/model/product_data.dart';
 
 class DataService {
   Future<AuthData?> doLogin(
@@ -20,6 +21,19 @@ class DataService {
       final json = jsonDecode(response.body);
       return AuthData.fromJson(json);
     }
+  }
+
+  Future<Map<String, dynamic>> getProducts() async {
+    var url = "https://dummyjson.com/products";
+
+    http.Response response = await http.get(Uri.parse(url));
+    // print(response.request);
+    print(response.statusCode);
+    print(response.body);
+    // if (response.statusCode == 200) {
+    final json = jsonDecode(response.body);
+    return json;
+    // }
   }
 }
 
